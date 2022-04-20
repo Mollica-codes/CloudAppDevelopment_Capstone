@@ -1,11 +1,11 @@
   applications:
-  - name: djangoapp
+  - name: djangoapp-final-proj
     routes:
-      - route: $HOST.$DOMAIN
+      - route: mollica-final-proj.us-south.cf.appdomain.cloud
     memory: 128M
     buildpack: python_buildpack
-  - name: djangoapp-nginx
+  - name: djangoapp-final-proj-nginx
     routes:
-      - route: $HOST.$DOMAIN/static
+      - route: mollica-final-proj.us-south.cf.appdomain.cloud/static
     memory: 128M
     buildpack: staticfile_buildpack

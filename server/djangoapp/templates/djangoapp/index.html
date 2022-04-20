@@ -14,10 +14,20 @@
 </head>
 
     <body>
-    <!-- Remove this line the first time you edit this file -->
-     This is the index page of your Django app!
     <!--Add a nav bar here -->
-
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="nav-header">
+                    Car Dealership App
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'djangoapp:about' %}">About</a>
+                        <a href="{% url 'djangoapp:contact' %}">Contact</a>
+                    <li>
+                </ul>
+            </div>
+        </nav>
     <!--Add a dealer table here -->
 
     </body>
