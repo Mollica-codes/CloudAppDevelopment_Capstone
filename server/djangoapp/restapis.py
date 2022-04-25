@@ -4,7 +4,7 @@ from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from ibm_watson.natural_language_understanding_v1 import Features, EntitiesOptions, KeywordsOptions
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, KeywordsOptions
 
 
 def get_request(url, **kwargs):
@@ -72,18 +72,21 @@ def get_dealers_from_cf(url, **kwargs):
 # def get_dealer_by_id_from_cf(url, dealerId):
 # - Call get_request() with specified arguments
 # - Parse JSON results into a DealerView object list
-def get_dealer_reviews_from_cf(url, id):
+def get_dealer_reviews_from_cf(url, **kwargs):
     results = []
     # Call get_request with a URL parameter
-    json_result = get_request(url, id=id)
+    id = kwargs.get("id")
+    if id:
+        json_result = get_request(url, id=id)
+    else:
+        json_result = get_request(url)
 
     if json_result:
-        # Get the row list in JSON as dealers
-        reviews = json_result['body']['data']
+        reviews = json_result["body"]["data"]
         # For each dealer object
         for dealer_review in reviews:
             # Get its content in `doc` object
-            dealer_review = reviews["doc"][0]
+            dealer_review = reviews["docs"][0]
             # Create a CarDealer object with values in `doc` object
             review_obj = DealerReview(dealership=dealer_review["dealership"],
                                    name=dealer_review["name"],
@@ -121,3 +124,16 @@ def analyze_review_sentiments(text):
     label = response['sentiment']['document']['label']
 
 
+def get_dealer_by_id(url, id):
+    json_result = get_request(url, id=id)
+    
+    if json_result:
+        dealers = json_result["body"]
+        
+    
+        dealer_doc = dealers["docs"][0]
+        dealer_obj = CarDealer(address=dealer_doc["address"], city=dealer_doc["city"], full_name=dealer_doc["full_name"],
+                                   id=dealer_doc["id"], lat=dealer_doc["lat"], long=dealer_doc["long"],
+                                   short_name=dealer_doc["short_name"],
+                                   st=dealer_doc["st"], zip=dealer_doc["zip"])
+    return dealer_obj
