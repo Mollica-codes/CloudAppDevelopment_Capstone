@@ -21,31 +21,41 @@ import uuid
 # - Any other fields you would like to include in car model
 # - __str__ method to print a car make object
 class CarMake(models.Model):
-    Name = models.CharField(null=False, max_length=30)
-    Description = models.CharField(max_length=1000)
-
+    name = models.CharField(null=False, max_length=30)
+    description = models.CharField(max_length=1000)
+    id = models.IntegerField(default=1, primary_key=True)
     def __str__(self):
-        return "Name: " + self.Name + "," + \
-               "Description: " + self.Description
+        return "Name: " + self.name + "," + \
+               "Description: " + self.description
 
 class CarModel(models.Model):
     SEDAN = 'Sedan'
+    TRUCK = "Truck"
+    SPORTS_CAR = "Sports car"
+    CONVERTIBLE = "Convertible"
+    COUPE = "Coupe"
+    HATCHBACK = "Hatchback"
     SUV = 'SUV'
     WAGON = 'WAGON'
     CHOICES = [
         (SEDAN, 'Sedan'),
+        (TRUCK, 'Truck'),
+        (COUPE, "Coupe"),
+        (HATCHBACK, "Hatchback"),
+        (SPORTS_CAR, "Sports car"),
+        (CONVERTIBLE, "Convertible"),
         (SUV, 'SUV'),
         (WAGON, 'WAGON')
     ]
     make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    DealerID = models.IntegerField(default=0)
-    Name = models.CharField(max_length=20)
-    Type = models.CharField(max_length=20, choices=CHOICES)
-    Year = models.DateField(default=now)
+    id = models.IntegerField(default=1, primary_key=True)
+    name = models.CharField(max_length=20)
+    type = models.CharField(max_length=20, choices=CHOICES)
+    year = models.DateField(default=now)
 
     def __str__(self):
-        return "Name: " + self.Name + "," + \
-               "Type: " + self.Type
+        return "Name: " + self.name + "," + \
+               "Type: " + self.type
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:
 
