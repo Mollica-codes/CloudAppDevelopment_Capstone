@@ -23,7 +23,7 @@ import uuid
 class CarMake(models.Model):
     name = models.CharField(null=False, max_length=30)
     description = models.CharField(max_length=1000)
-    id = models.IntegerField(default=1, primary_key=True)
+
     def __str__(self):
         return "Name: " + self.name + "," + \
                "Description: " + self.description
