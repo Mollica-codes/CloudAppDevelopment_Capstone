@@ -71,6 +71,9 @@ def registration_request(request):
         if not user_exist:
             user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                             password=password)
+            user.is_superuser = True
+            user.is_staff=True
+            user.save() 
             login(request, user)
             return redirect("djangoapp:index")
         else:
@@ -98,6 +101,7 @@ def get_dealer_details(request, id):
 
         review_url = "https://5b7e7312.us-south.apigw.appdomain.cloud/api/review"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
+        print(reviews)
         context['reviews'] = reviews
 
         return render(request, 'djangoapp/dealer_details.html', context)
