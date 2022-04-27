@@ -6,9 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<body>
-    <h2>Addresses</h2>
-    <h2>Telephone number</h2>
+<body style="background-color: #add8e6;">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                  <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Reviews</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Username" name="username" >
+                            <input type="password" class="form-control" placeholder="Password" name="psw" >
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center" style="padding-top: 20px;">
+        <h1>Thanks for visiting us!<h1>
+        <h2>Here are some ways to contact us</h2>
+        <div class='bg-dark' style="color: white; margin: 50px; padding: 20px;">
+            <h4>Addresses</h4>
+            <p>1234 dealer ln.</p>
+            <h4>Telephone number</h4>
+            <p>***-***-****</p>
+        </div>
+    </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
+    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -10,7 +11,6 @@
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-
 </head>
 
     <body>
@@ -42,11 +42,8 @@
             </ul>
         </div>
     </nav>
-        <div>
-            <a href="{% url 'djangoapp:about' %}">About</a>
-            <a href="{% url 'djangoapp:contact' %}">Contact</a>
-        </div>
     <!--Add a dealer table here -->
+    <div class="container p-4">
     <table class="table" id="table" data-filter-control="true">
         <thead>
             <tr>
@@ -71,7 +68,28 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
     </body>
+    <footer class="bg-light text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <section class="mb-4">
+                <a
+                    class="btn btn-primary btn-floating m-2"
+                    style="background-color: #55acee;"
+                    href="{% url 'djangoapp:about' %}"
+                    role="button"
+                >About</a>
+              
+                <a
+                    class="btn btn-primary btn-floating m-2"
+                    style="background-color: #55acee;"
+                    href="{% url 'djangoapp:contact' %}"
+                    role="button"
+                >Contact</a>
+            </section>
+        </div>
+    </footer>
     <script>
         $(function() {
           $('#table').bootstrapTable()
